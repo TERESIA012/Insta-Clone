@@ -46,3 +46,26 @@ def profile(request,prof_id):
 	
 
 	return render(request,'accounts/profile.html',{"images":images,"profile":profile,"title":title,"is_follow":is_follow,"followers":followers,"following":following})
+
+@login_required(login_url='/accounts/login/')
+def create(request):
+	'''
+	Method that created an image post
+	'''
+	current_user = request.user
+	profile = Profile.objects.get(user = request.user.id)
+	title = "Create New Post"
+	if request.method == 'POST':
+		form = NewImagePost(request.POST,request.FILES)
+		if form.is_valid():
+			post = form.save(commit =  False)
+			post.profile = current_user
+			post.user_profile = profile
+			post.save()
+			return redirect('profile',current_user.id)
+	else:
+		
+		form = NewImagePost()
+
+	return render(request,'accounts/create_post.html',{"form":form,"title":title})
+
