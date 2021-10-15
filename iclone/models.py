@@ -45,3 +45,16 @@ class Image(models.Model):
 
 	def __str__(self):
 		return self.image_name
+
+class Comment(models.Model):
+	comment = models.CharField(max_length = 1000)
+	created_at = models.DateTimeField(auto_now_add = True)
+	image = models.ForeignKey(Image)
+	profile = models.ForeignKey(User)
+
+	def __str__(self):
+		return self.profile
+
+#Add the following field to User dynamically
+def get_first_name(self):
+    return self.first_name
