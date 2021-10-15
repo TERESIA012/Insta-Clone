@@ -69,3 +69,30 @@ def create(request):
 
 	return render(request,'accounts/create_post.html',{"form":form,"title":title})
 
+
+@login_required(login_url='/accounts/login/')
+def updateProfile(request):
+	'''
+	Method that updates a user's profile.
+	'''
+	current_user = request.user
+	
+	title = "Update Profile"
+	if request.method == 'POST':
+		if Profile.objects.filter(user_id = current_user).exists():
+			form = UpdateProfile(request.POST,request.FILES,instance = Profile.objects.get(user_id = current_user))
+		else:
+			form = UpdateProfile(request.POST,request.FILES)
+		if form.is_valid():
+			userProfile = form.save(commit = False)
+			userProfile.user = current_user
+			userProfile.save()
+			return redirect('profile',current_user.id)
+	else:
+		if Profile.objects.filter(user_id = current_user).exists():
+			form = UpdateProfile(instance = Profile.objects.get(user_id = current_user))
+		else:
+			form = UpdateProfile()
+
+	return render(request,'accounts/update_profile.html',{"form":form,"title":title})
+
