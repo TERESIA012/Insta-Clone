@@ -26,7 +26,7 @@ def timeline(request):
 	images = Image.objects.filter(profile = request.user.following.user_to)
 	return render(request, 'accounts/timeline.html',{"images":images,"follows":follows})
 
-
+@login_required(login_url='/accounts/login/')
 def profile(request,prof_id):
 	'''
 	Method that fetches a users profile page
