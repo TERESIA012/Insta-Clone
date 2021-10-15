@@ -65,4 +65,11 @@ class Follow(models.Model):
   
     def __str__(self):
         return '{} follows {}'.format(self.user_from, self.user_to)
+    
+    
+User.add_to_class('following',
+                  models.ManyToManyField('self',
+                                         through=Follow,
+                                         related_name='followers',
+                                         symmetrical=False))    
 
