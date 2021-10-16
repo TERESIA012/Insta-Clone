@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
-        max_length=254, help_text='Required. Inform a valid email address.')
+        max_length=200, help_text='Required. Inform a valid email address.')
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
@@ -24,7 +24,7 @@ class ProfileForm(forms.ModelForm):
         fields = ('photo','name','bio')
 
 class UpdateUserForm(forms.ModelForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField(max_length=200, help_text='Required. Inform a valid email address.')
 
     class Meta:
         model = User
