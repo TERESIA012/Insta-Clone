@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[
+    path('signup/', views.signup, name='signup'),
     path('',views.index,name = 'index'),
     path('account/', include('django.contrib.auth.urls')),
     path('profile/<str:username>/',views.profile,name='profile'),

@@ -1,18 +1,34 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
-from .forms import UploadForm,ProfileForm,UpdateUserForm,UpdateUserProfileForm,CommentForm
+from .forms import UploadForm,ProfileForm,UpdateUserForm,UpdateUserProfileForm,CommentForm,SignUpForm
 from .models import Image,Profile,Follow,Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-# from .email import send_welcome_email
+from .email import send_welcome_email
 
 
 
 # Create your views here.
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+
+
 @login_required(login_url='/accounts/login/')
 def index(request):
     images = Image.images()
@@ -110,7 +126,7 @@ def unfollow(request, to_unfollow):
         user_two_profile = Profile.objects.get(pk=to_unfollow)
         unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_two_profile)
         unfollow_d.delete()
-        return redirect('user_profile', user_two_profile.user.username)
+        return redirect('user_profile.html', user_two_profile.user.username)
 
 
 @login_required(login_url='/accounts/login/')
@@ -119,7 +135,7 @@ def follow(request, to_follow):
         user_three_profile = Profile.objects.get(pk=to_follow)
         follow_s = Follow(follower=request.user.profile, followed=user_three_profile)
         follow_s.save()
-        return redirect('user_profile', user_three_profile.user.username)
+        return redirect('user_profile.html', user_three_profile.user.username)
 
 @login_required(login_url='/accounts/login/')
 def comment(request, id):
