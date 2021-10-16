@@ -21,20 +21,20 @@
     </div>
     <div class="col-md-6 mt-3">
         <div class="media-body">
-            <h5 style="float: left; margin-right: 20px; margin-left: 20px;">{{ user.username}}</h5>
+            <h5 style="float: left; margin-right: 20px; margin-left: 20px; color:#fff;">{{ user.username}}</h5>
 
 
             <a class="btn btn-sm btn-outline-secondary mr-3" data-toggle="modal"
                 data-target=".bd-example-modal-md"><strong>Edit
                     Profile</strong></a>
 
-            <div class="post-details mt-3 mb-3">
-                <span class="mr-5"><strong>{{images.count}}</strong> Posts</span>
-                <span class="mr-5"> <strong>{{ user.profile.followers.count }}</strong> followers</span>
-                <span class="mr-5"> <strong>{{ user.profile.following.count }}</strong> following</span>
+            <div class="post-details mt-3 mb-3" >
+                <span class="mr-5" style="color:#fff;"><strong>{{images.count}}</strong> Posts</span>
+                <span class="mr-5" style="color:#fff;"> <strong>{{ user.profile.followers.count }}</strong> followers</span>
+                <span class="mr-5" style="color:#fff;"> <strong>{{ user.profile.following.count }}</strong> following</span>
             </div>
             <!-- <p>{{ user.profile.name }}</p> -->
-            <p style="margin-left: 20px;">{{ user.profile.bio}}</p>
+            <p style="margin-left: 20px; color:#fff;">{{ user.profile.bio}}</p>
         </div>
     </div>
     <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -61,7 +61,7 @@
     <div class="col-6">
         <div class="container">
             {% for image in images %}
-            <div class="card" style="width: 40rem; margin-top: 50px;">
+            <div class="card" style="width: 40rem; margin-top: 50px; ">
                 <div class="card-body">
                     <a href="{% url 'comment' image.id %}"><img src="{{ image.image.url }}" class="card-img-top"
                         alt="..." style="width: 100%;"></a>
