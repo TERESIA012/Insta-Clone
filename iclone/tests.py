@@ -28,7 +28,7 @@ class ProfileTestClass(TestCase):
 
 class ImageTestClass(TestCase):
     def setUp(self):
-        self.profile = Profile(user=User(username='martin'))
+        self.profile = Profile(user=User(username='tess'))
         self.profile.user.save()
         self.profile.save()
         self.image = Image(user=self.profile,image='download.jpeg', name='person', caption='this is it')
