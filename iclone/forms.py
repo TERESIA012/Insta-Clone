@@ -9,3 +9,8 @@ class UploadForm(forms.ModelForm):
         model = Image
         fields = ('image','caption')
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('photo','name','bio')
+
