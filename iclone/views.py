@@ -126,7 +126,7 @@ def unfollow(request, to_unfollow):
         user_two_profile = Profile.objects.get(pk=to_unfollow)
         unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_two_profile)
         unfollow_d.delete()
-        return redirect('user_profile.html', user_two_profile.user.username)
+        return redirect('user_profile', user_two_profile.user.username)
 
 
 @login_required(login_url='/accounts/login/')
@@ -135,7 +135,7 @@ def follow(request, to_follow):
         user_three_profile = Profile.objects.get(pk=to_follow)
         follow_s = Follow(follower=request.user.profile, followed=user_three_profile)
         follow_s.save()
-        return redirect('user_profile.html', user_three_profile.user.username)
+        return redirect('user_profile', user_three_profile.user.username)
 
 @login_required(login_url='/accounts/login/')
 def comment(request, id):
