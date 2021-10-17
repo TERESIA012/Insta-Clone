@@ -13,9 +13,12 @@ from cloudinary.models import CloudinaryField
 class Image(models.Model):
     user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='images')
     image = CloudinaryField('images',blank = True)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     # image = models.ImageField(upload_to = 'assets/', null=True, blank=True)
     name = models.CharField(max_length=30)
     caption = models.CharField(max_length=30)
+    posted = models.DateTimeField(auto_now_add=True, null=True)
+    # location = models.CharField(max_length=80, null=True)
 
     class Meta:
         ordering = ["-pk"]
@@ -81,6 +84,10 @@ class Profile(models.Model):
     @classmethod
     def search_profile(cls, name):
         return cls.objects.filter(user__username__icontains=name).all()
+    
+class Likes(models.Model):
+    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='user_like')
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,related_name='image_likes')    
 
 
 class Follow(models.Model):

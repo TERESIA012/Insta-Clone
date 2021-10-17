@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render
 from .forms import UploadForm,ProfileForm,UpdateUserForm,UpdateUserProfileForm,CommentForm,SignUpForm
-from .models import Image,Profile,Follow,Comment
+from .models import Image,Profile,Follow,Comment,Likes
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
+from django.template.loader import render_to_string
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -119,6 +120,23 @@ def user_profile(request, username):
         'follow_status': follow_status
     }
     return render(request, 'user_profile.html', params)
+
+def like(request,post_id):
+    user = request.user
+    post = Image.objects.get(id = post_id)
+    current_likes = post.likes
+    liked = Likes.objects.filter(user = user,post = post).count()
+    if not liked:
+        Likes.objects.create(user = user,post = post)
+        current_likes = current_likes + 1
+    else:
+        Likes.objects.filter(user = user,post = post).delete()  
+        current_likes = current_likes - 1
+
+    post.likes = current_likes
+    post.save()
+
+    return redirect('post') 
 
 @login_required(login_url='/accounts/login/')
 def unfollow(request, to_unfollow):
