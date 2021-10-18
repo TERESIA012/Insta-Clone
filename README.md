@@ -1,5 +1,5 @@
 # InstaClone
->[Teresia King'ori](https://github.com/Anthony64M)  
+>[Teresia King'ori](https://github.com/TERESIA012/Insta-Clone)  
   
 # Description  
 This is a clone of  Instagram where people share their  images for other users to view. 
