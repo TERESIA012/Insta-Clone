@@ -1,5 +1,6 @@
 {% extends 'registration/base.html' %}
-{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+<!-- {% load bootstrap4 %} -->
 {% block content %}
 {% load static %}
 <div class="container mt-4">
@@ -15,7 +16,8 @@
                     </p>
                     <form action="" method="post" novalidate>
                         {% csrf_token %}
-                        {% bootstrap_form form layout='inline' %}
+                        {{ form|crispy}}
+                        <!-- {% bootstrap_form form layout='inline' %} -->
                         <button type="submit" class="btn btn-primary btn-sm"> Sign up</button>
                     </form>
                 </div>

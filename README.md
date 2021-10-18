@@ -69,5 +69,5 @@ Open the application on your browser `127.0.0.1:8000`.
 Email:kingoriteresia@gmail.com
   
 ## License 
-* [![License](https://img.shields.io/packagist/l/loopline-systems/closeio-api-wrapper.svg)](https://github.com/Anthony64M/Picture-Globe/blob/master/LICENSE)  
+* [![License](https://img.shields.io/packagist/l/loopline-systems/closeio-api-wrapper.svg)](https://github.com/TERESIA012/Insta-Clone/blob/master/Licence)  
 * Copyright (c) 2021 **Teresia King'ori**
