@@ -51,7 +51,7 @@ class Image(models.Model):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile',null=True)
-    photo = models.ImageField(upload_to = 'gallery/', null=True, blank=True, default='download.jpeg')
+    photo = models.CloudinaryField(upload_to = 'assets/', null=True, blank=True, default='download.jpeg')
     bio = models.CharField(max_length=300)
     name = models.CharField(blank=True, max_length=120)
 
